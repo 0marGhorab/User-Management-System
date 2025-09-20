@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
   onLoginSubmit() {
     console.log('loginSubmit Clicked');
 
-    this.loginData = this.authService.onLoginService(this.loginFormData).subscribe({
+    this.authService.onLoginService(this.loginFormData).subscribe({
       next: (response: any) => {
         if (response.result) {
           alert(response.message);
@@ -40,7 +40,14 @@ export class LoginComponent implements OnInit {
         }
       },
       error: (error) => {
-        alert(error.error);
+        console.error('Login error:', error);
+        if (error.error && typeof error.error === 'string') {
+          alert(error.error);
+        } else if (error.error && error.error.message) {
+          alert(error.error.message);
+        } else {
+          alert('Request failed: ' + error.message);
+        }
       },
     });
   }

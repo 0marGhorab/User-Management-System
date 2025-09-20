@@ -47,7 +47,14 @@ export class RegisterComponent implements OnInit {
         }
       },
       error: (error) => {
-        alert(error.error);
+        console.error('Register error:', error);
+        if (error.error && typeof error.error === 'string') {
+          alert(error.error);
+        } else if (error.error && error.error.message) {
+          alert(error.error.message);
+        } else {
+          alert('Request failed: ' + error.message);
+        }
       },
     });
   }

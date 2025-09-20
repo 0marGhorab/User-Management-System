@@ -31,8 +31,15 @@ export class AdminComponent implements OnInit {
           console.log(this.allUsers);
         }
       },
-      error: (err) => {
-        console.error('Error fetching users:', err);
+      error: (error) => {
+        console.error('Error fetching users:', error);
+        if (error.error && typeof error.error === 'string') {
+          alert(error.error);
+        } else if (error.error && error.error.message) {
+          alert(error.error.message);
+        } else {
+          alert('Request failed: ' + error.message);
+        }
       },
     });
   }
@@ -46,8 +53,15 @@ export class AdminComponent implements OnInit {
             this.sendRequest();
           }
         },
-        error: (err) => {
-          console.error('Error deleting user:', err);
+        error: (error) => {
+          console.error('Error deleting user:', error);
+          if (error.error && typeof error.error === 'string') {
+            alert(error.error);
+          } else if (error.error && error.error.message) {
+            alert(error.error.message);
+          } else {
+            alert('Request failed: ' + error.message);
+          }
         },
       });
     }

@@ -50,7 +50,7 @@ export class EditUserComponent implements OnInit {
 
   onEditConfirm() {
     if (this.userFormData.valid) {
-      if (confirm('Are you sure you wnt to change these data?')) {
+      if (confirm('Are you sure you want to change these data?')) {
         this.userFormData.patchValue({ userId: this.userId });
         this.userService.updateUser(this.userFormData).subscribe({
           next: (response: any) => {
@@ -63,7 +63,16 @@ export class EditUserComponent implements OnInit {
               alert(response.message);
             }
           },
-          error: (err) => console.error('Error updating user:', err),
+          error: (error) => {
+            console.error('Update error:', error);
+            if (error.error && typeof error.error === 'string') {
+              alert(error.error);
+            } else if (error.error && error.error.message) {
+              alert(error.error.message);
+            } else {
+              alert('Request failed: ' + error.message);
+            }
+          },
         });
       }
     }
