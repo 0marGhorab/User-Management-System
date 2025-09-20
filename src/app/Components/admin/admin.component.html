@@ -1,0 +1,41 @@
+<body class="pt-5 mt-5">
+  <div class="container table-container">
+    <h2 class="animate__animated animate__fadeInDown">Users List</h2>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead class="table-primary">
+          <tr>
+            <th scope="col">No.</th>
+            <th scope="col">Full Name</th>
+            <th scope="col">Mobile Number</th>
+            <th scope="col">Email</th>
+            <th scope="col">Password</th>
+            <th scope="col" class="text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (user of allUsers; track $index) {
+          <tr>
+            <td>{{ $index + 1 }}</td>
+            <td>{{ user.firstName }} {{ user.lastName }}</td>
+            <td>{{ user.mobileNo }}</td>
+            <td>{{ user.emailId }}</td>
+            <td>••••••</td>
+            <td class="text-center">
+              <button
+                class="btn btn-sm btn-warning btn-action me-2"
+                [routerLink]="['/editUser', user.userId]"
+              >
+                Edit
+              </button>
+              <button class="btn btn-sm btn-danger btn-action" (click)="onDeleteUser(user.userId)">
+                Delete
+              </button>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>

@@ -1,0 +1,115 @@
+<body>
+  <div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow-lg p-4 animate__animated animate__fadeInUp" style="width: 400px">
+      <h3 class="text-center mb-4">Register</h3>
+
+      <form [formGroup]="registerFormData">
+        <div class="mb-3">
+          <input
+            type="text"
+            class="form-control"
+            formControlName="firstName"
+            placeholder="First Name"
+            required
+          />
+          @if (registerFormData.get('firstName')?.touched &&
+          registerFormData.get('firstName')?.hasError('required')) {
+          <small class="text-danger">First name is required</small>
+          }@else if ( registerFormData.get('firstName')?.hasError('minlength')) {
+          <small class="text-danger">First name min length is 5 characters</small>
+          }
+        </div>
+
+        <div class="mb-3">
+          <input
+            type="text"
+            class="form-control"
+            formControlName="middleName"
+            placeholder="Middle Name"
+          />
+          @if (registerFormData.get('middleName')?.touched &&
+          registerFormData.get('middleName')?.hasError('required')) {
+          <small class="text-danger">Middle name is required</small>
+          }@else if ( registerFormData.get('middleName')?.hasError('minlength')) {
+          <small class="text-danger">Middle name min length is 5 characters</small>
+          }
+        </div>
+
+        <div class="mb-3">
+          <input
+            type="text"
+            class="form-control"
+            formControlName="lastName"
+            placeholder="Last Name"
+            required
+          />
+          @if (registerFormData.get('lastName')?.touched &&
+          registerFormData.get('lastName')?.hasError('required')) {
+          <small class="text-danger">Last name is required</small>
+          }@else if ( registerFormData.get('lastName')?.hasError('minlength')) {
+          <small class="text-danger">Last name min length is 5 characters</small>
+          }
+        </div>
+
+        <div class="mb-3">
+          <input
+            type="number"
+            class="form-control"
+            formControlName="mobileNo"
+            placeholder="Mobile Number"
+            required
+          />
+          @if (registerFormData.get('mobileNo')?.touched &&
+          registerFormData.get('mobileNo')?.hasError('required')) {
+          <small class="text-danger">Mobile Number is required</small>
+          }@else if ( registerFormData.get('mobileNo')?.hasError('pattern')) {
+          <small class="text-danger">Invalid Mobile number</small>
+          }
+        </div>
+
+        <div class="mb-3">
+          <input
+            type="email"
+            class="form-control"
+            formControlName="emailId"
+            placeholder="Email"
+            required
+          />
+          @if (registerFormData.get('emailId')?.touched &&
+          registerFormData.get('emailId')?.hasError('required')) {
+          <small class="text-danger">Email is required</small>
+          }@else if ( registerFormData.get('emailId')?.hasError('email')) {
+          <small class="text-danger">Invalid Email</small>
+          }
+        </div>
+
+        <div class="mb-3">
+          <input
+            type="password"
+            class="form-control"
+            formControlName="password"
+            placeholder="Password"
+            required
+          />
+          @if (registerFormData.get('password')?.touched &&
+          registerFormData.get('password')?.hasError('required')) {
+          <small class="text-danger">Password is required</small>
+          }@else if ( registerFormData.get('password')?.hasError('minlength')) {
+          <small class="text-danger">Password must atleast be 6 characters</small>
+          }
+        </div>
+        <div class="extra-links">
+          <p>Already got an account? <a routerLink="/login">Login</a></p>
+        </div>
+        <button
+          type="button"
+          class="btn btn-primary w-100 btn-register"
+          (click)="onRegister()"
+          [disabled]="registerFormData.invalid"
+        >
+          Register
+        </button>
+      </form>
+    </div>
+  </div>
+</body>
