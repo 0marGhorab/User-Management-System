@@ -7,7 +7,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class UsersService {
   //constants
-  apiBaseURL: string = 'https://freeapi.miniprojectideas.com/api/User';
+  apiBaseURL: string = '/api/User';
   // variables
   allUsers: any = {};
   // injections

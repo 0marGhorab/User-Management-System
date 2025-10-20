@@ -1,6 +1,18 @@
-<body class="pt-5 mt-5">
-  <div class="container table-container">
-    <h2 class="animate__animated animate__fadeInDown">Users List</h2>
+<div class="pt-5 mt-5">
+  <!-- Loader -->
+  <div *ngIf="isLoading" class="loader flex justify-center items-center gap-2">
+    <div class="spinner"></div>
+    Loading users...
+  </div>
+
+  <!-- No Users Found -->
+  <div *ngIf="!isLoading && allUsers.length === 0" class="text-center py-4 text-gray-500">
+    No users found.
+  </div>
+
+  <!-- Table -->
+  <div *ngIf="!isLoading && allUsers.length > 0" class="container table-container">
+    <h2 class="animate__animated animate__fadeInDown mb-3">Users List</h2>
     <div class="table-responsive">
       <table class="table table-hover align-middle">
         <thead class="table-primary">
@@ -13,17 +25,15 @@
           </tr>
         </thead>
         <tbody>
-          @for (user of allUsers; track $index) {
-          <tr>
-            <td>{{ $index + 1 }}</td>
+          <tr *ngFor="let user of allUsers; let i = index" class="animate-fadeIn">
+            <td>{{ i + 1 }}</td>
             <td>{{ user.firstName }} {{ user.lastName }}</td>
             <td>{{ user.mobileNo }}</td>
             <td>{{ user.emailId }}</td>
             <td>••••••</td>
           </tr>
-          }
         </tbody>
       </table>
     </div>
   </div>
-</body>
+</div>

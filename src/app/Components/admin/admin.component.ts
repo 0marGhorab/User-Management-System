@@ -1,18 +1,18 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { AuthService } from '../../Services/auth.service';
 import { UsersService } from '../../Services/users.service';
 import { Router, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common'; // <-- Needed for *ngIf and *ngFor
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css'],
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule], // <-- Added CommonModule for *ngIf and *ngFor
 })
 export class AdminComponent implements OnInit {
-  // variables
-  allUsers: any = {};
-  // injections
+  allUsers: any[] = []; // <-- store users as array
+  isLoading: boolean = false; // <-- loader flag
+
   userService = inject(UsersService);
   router = inject(Router);
 
@@ -23,29 +23,26 @@ export class AdminComponent implements OnInit {
   }
 
   sendRequest() {
-    this.allUsers = this.userService.getAllUsers().subscribe({
+    this.isLoading = true; // <-- start loader
+    this.userService.getAllUsers().subscribe({
       next: (response: any) => {
-        console.log(response);
         if (response.result) {
           this.allUsers = response.data.slice(0, 10);
-          console.log(this.allUsers);
         }
       },
       error: (error) => {
         console.error('Error fetching users:', error);
-        if (error.error && typeof error.error === 'string') {
-          alert(error.error);
-        } else if (error.error && error.error.message) {
-          alert(error.error.message);
-        } else {
-          alert('Request failed: ' + error.message);
-        }
+        alert('Request failed: ' + (error?.error?.message || error.message || 'Unknown error'));
+      },
+      complete: () => {
+        this.isLoading = false; // <-- stop loader
       },
     });
   }
 
   onDeleteUser(id: number) {
     if (confirm('Are you sure you want to delete this user?')) {
+      this.isLoading = true; // <-- start loader during delete
       this.userService.deleteUser(id).subscribe({
         next: (response: any) => {
           if (response.result) {
@@ -55,13 +52,10 @@ export class AdminComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error deleting user:', error);
-          if (error.error && typeof error.error === 'string') {
-            alert(error.error);
-          } else if (error.error && error.error.message) {
-            alert(error.error.message);
-          } else {
-            alert('Request failed: ' + error.message);
-          }
+          alert('Request failed: ' + (error?.error?.message || error.message || 'Unknown error'));
+        },
+        complete: () => {
+          this.isLoading = false; // <-- stop loader
         },
       });
     }

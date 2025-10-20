@@ -2,7 +2,6 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../Services/auth.service';
-import { UsersService } from '../../Services/users.service';
 
 @Component({
   selector: 'app-login',
@@ -11,21 +10,21 @@ import { UsersService } from '../../Services/users.service';
   imports: [ReactiveFormsModule, RouterLink],
 })
 export class LoginComponent implements OnInit {
-  // Variables
+  // ---------- Variables ----------
   loginFormData: FormGroup = new FormGroup({
     emailId: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
   });
   loginData: any;
 
-  // injections
+  // ---------- injections ----------
   router = inject(Router);
   authService = inject(AuthService);
 
   constructor() {}
 
   ngOnInit() {}
-
+  //  Login button clicked( submit funtion )
   onLoginSubmit() {
     console.log('loginSubmit Clicked');
 

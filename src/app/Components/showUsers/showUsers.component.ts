@@ -1,18 +1,20 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { AuthService } from '../../Services/auth.service';
+import { CommonModule } from '@angular/common';
 import { UsersService } from '../../Services/users.service';
 
 @Component({
   selector: 'app-showUsers',
   templateUrl: './showUsers.component.html',
   styleUrls: ['./showUsers.component.css'],
-  imports: [],
+  standalone: true, // If standalone, otherwise remove
+  imports: [CommonModule], // Needed for *ngIf and *ngFor
 })
 export class ShowUsersComponent implements OnInit {
-  // variables
-  allUsers: any = {};
-  // injections
+  allUsers: any[] = []; // array to store users
+  isLoading: boolean = false; // loader flag
+
   userService = inject(UsersService);
+
   constructor() {}
 
   ngOnInit() {
@@ -20,23 +22,19 @@ export class ShowUsersComponent implements OnInit {
   }
 
   sendRequest() {
-    this.allUsers = this.userService.getAllUsers().subscribe({
+    this.isLoading = true;
+    this.userService.getAllUsers().subscribe({
       next: (response: any) => {
-        console.log(response);
         if (response.result) {
           this.allUsers = response.data.slice(0, 10);
-          console.log(this.allUsers);
         }
       },
       error: (error) => {
         console.error('Error fetching users:', error);
-        if (error.error && typeof error.error === 'string') {
-          alert(error.error);
-        } else if (error.error && error.error.message) {
-          alert(error.error.message);
-        } else {
-          alert('Request failed: ' + error.message);
-        }
+        alert('Request failed: ' + (error?.error?.message || error.message || 'Unknown error'));
+      },
+      complete: () => {
+        this.isLoading = false;
       },
     });
   }

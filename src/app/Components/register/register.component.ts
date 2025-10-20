@@ -16,7 +16,7 @@ import { Router, RouterLink } from '@angular/router';
   imports: [ɵInternalFormsSharedModule, ReactiveFormsModule, RouterLink],
 })
 export class RegisterComponent implements OnInit {
-  // Variables
+  // ---------- Variables ----------
   registerFormData: FormGroup = new FormGroup({
     userId: new FormControl(0),
     firstName: new FormControl('', [Validators.required, Validators.minLength(5)]),
@@ -28,14 +28,14 @@ export class RegisterComponent implements OnInit {
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
   });
 
-  // injections
+  // ---------- injections ----------
   authService = inject(AuthService);
   router = inject(Router);
 
   constructor() {}
 
   ngOnInit() {}
-
+  // ---------- Register (Submit button clicked) ----------
   onRegister() {
     this.authService.onRegisterService(this.registerFormData).subscribe({
       next: (response: any) => {

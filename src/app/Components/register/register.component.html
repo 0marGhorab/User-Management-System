@@ -1,9 +1,12 @@
 <body>
   <div class="d-flex justify-content-center align-items-center vh-100">
     <div class="card shadow-lg p-4 animate__animated animate__fadeInUp" style="width: 400px">
+      <!-- Title start -->
       <h3 class="text-center mb-4">Register</h3>
-
+      <!-- Title end -->
+      <!-- Form Start -->
       <form [formGroup]="registerFormData">
+        <!-- First name -->
         <div class="mb-3">
           <input
             type="text"
@@ -19,7 +22,7 @@
           <small class="text-danger">First name min length is 5 characters</small>
           }
         </div>
-
+        <!-- Middle name -->
         <div class="mb-3">
           <input
             type="text"
@@ -34,7 +37,7 @@
           <small class="text-danger">Middle name min length is 5 characters</small>
           }
         </div>
-
+        <!-- Last name -->
         <div class="mb-3">
           <input
             type="text"
@@ -50,7 +53,7 @@
           <small class="text-danger">Last name min length is 5 characters</small>
           }
         </div>
-
+        <!-- Mobile number -->
         <div class="mb-3">
           <input
             type="number"
@@ -66,7 +69,7 @@
           <small class="text-danger">Invalid Mobile number</small>
           }
         </div>
-
+        <!-- Email address -->
         <div class="mb-3">
           <input
             type="email"
@@ -82,7 +85,7 @@
           <small class="text-danger">Invalid Email</small>
           }
         </div>
-
+        <!-- Password -->
         <div class="mb-3">
           <input
             type="password"
@@ -98,9 +101,11 @@
           <small class="text-danger">Password must atleast be 6 characters</small>
           }
         </div>
+        <!-- Extra Links like (navigation to login page) -->
         <div class="extra-links">
           <p>Already got an account? <a routerLink="/login">Login</a></p>
         </div>
+        <!-- Register (submit form) button -->
         <button
           type="button"
           class="btn btn-primary w-100 btn-register"
@@ -110,6 +115,7 @@
           Register
         </button>
       </form>
+      <!-- Form end -->
     </div>
   </div>
 </body>

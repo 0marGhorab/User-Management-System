@@ -7,7 +7,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class AuthService {
   // Constants
-  apiBaseURL: string = 'https://freeapi.miniprojectideas.com/api/User';
+  apiBaseURL: string = '/api/User';
   // injections
   http = inject(HttpClient);
 
